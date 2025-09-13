@@ -13,7 +13,7 @@ FROM base AS backend-build
 # Copy backend dependencies
 WORKDIR /app/backend
 COPY backend/package*.json ./
-RUN npm install --production
+RUN npm install 
 
 # Copy backend source
 COPY backend ./
@@ -22,7 +22,7 @@ COPY backend ./
 EXPOSE 5000
 
 # Start backend
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
 
 # ==============================
 # Frontend Build
@@ -38,10 +38,10 @@ RUN npm install
 COPY frontend ./
 
 # Build the Next.js app
-RUN npm run build
+# RUN npm run build
 
 # Expose frontend port
 EXPOSE 3000
 
 # Start frontend
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

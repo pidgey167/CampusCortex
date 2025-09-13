@@ -4,6 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Heart, Plus } from 'lucide-react'
 import Link from 'next/link'
+import { useAuth } from '../providers/AuthProvider'
+import { useEffect, useState } from 'react'
+import api from '@/lib/api'
 
 const moodEmojis = {
   happy: '😊',
@@ -27,8 +30,31 @@ const recentMoods = [
 ]
 
 export function MoodTracker() {
-  const today = new Date().toISOString().split('T')[0]
-  const todayMood = recentMoods.find(mood => mood.date === today)
+  const { user } = useAuth()
+  const [todayMood, setTodayMood] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!user) return
+
+    const fetchTodayMood = async () => {
+      try {
+        const response = await api.get('/mood/today', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        })
+        setTodayMood(response.data.data.moodLog) // backend should return the mood log for today
+      } catch (err) {
+        console.error('Failed to fetch today\'s mood', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchTodayMood()
+  }, [user])
+
+  console.log(todayMood)
+  if (loading) return <p>Loading...</p>
 
   return (
     <Card>

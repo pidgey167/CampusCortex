@@ -133,11 +133,23 @@ export function MoodPassport() {
         energyLevel
       }
 
+      const token = localStorage.getItem('token')
       // This would be an API call to save the mood log
-      console.log('Saving mood data:', moodData)
-      
+     const res = await fetch("http://localhost:5000/api/mood", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // if you're using JWT auth
+      },
+      body: JSON.stringify(moodData),
+    })
+
+    if (!res.ok) {
+      throw new Error("Failed to log mood")
+    }
+
+    const data = await res.json() 
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
       
       toast.success('Mood logged successfully!')
       
