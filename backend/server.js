@@ -8,8 +8,8 @@ const { createServer } = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
 
-const connectDB = require('./config/database');
-const connectRedis = require('./config/redis');
+const { connectDB } = require('./config/database');
+const {connectRedis} = require('./config/redis');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -24,7 +24,7 @@ const harborRoutes = require('./routes/harbor');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
-const auth = require('./middleware/auth');
+const {auth} = require('./middleware/auth');
 
 const app = express();
 const server = createServer(app);
