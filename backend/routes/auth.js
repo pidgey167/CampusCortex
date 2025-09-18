@@ -1,21 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const {
-  register,
-  login,
-  refreshToken,
-  logout,
-  getMe,
-  updateProfile,
-  changePassword,
-  forgotPassword,
-  resetPassword
+	register,
+	login,
+	refreshToken,
+	logout,
+	getMe,
+	updateProfile,
+	changePassword,
+	forgotPassword,
+	resetPassword,
 } = require('../controllers/authController');
 const { auth } = require('../middleware/auth');
 const {
-  validateUserRegistration,
-  validateUserLogin,
-  handleValidationErrors
+	validateUserRegistration,
+	validateUserLogin,
+	handleValidationErrors,
 } = require('../middleware/validation');
 
 // Public routes

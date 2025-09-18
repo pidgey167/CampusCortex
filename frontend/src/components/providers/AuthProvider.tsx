@@ -85,7 +85,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       if (response.data.success) {
-        setUser(response.data.data)
+        setUser(response.data.data.user)
       } else {
         localStorage.removeItem('token')
       }

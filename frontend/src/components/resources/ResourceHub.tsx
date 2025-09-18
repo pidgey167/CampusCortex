@@ -26,6 +26,7 @@ import {
 } from 'lucide-react'
 import { api } from '@/lib/api'
 import toast from 'react-hot-toast'
+import React from 'react'
 
 interface Resource {
   _id: string
